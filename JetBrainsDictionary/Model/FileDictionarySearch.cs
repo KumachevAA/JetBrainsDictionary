@@ -5,12 +5,14 @@ namespace JetBrainsDictionary.Model
 {
     class FileDictionarySearch : IDictionarySearch
     {
-        public FileDictionarySearch(string Path)
+        public FileDictionarySearch(string Path, IMatchChecker Checker)
         {
             this.Path = Path;
+            this.Checker = Checker;
         }
 
         public string Path { get; }
+        public IMatchChecker Checker { get; }
 
         public IEnumerable<string> Find(string Expression)
         {
@@ -20,7 +22,7 @@ namespace JetBrainsDictionary.Model
 
             while (line != null)
             {
-                if (line.ToLower().Contains(Expression.ToLower()))
+                if (Checker.IsMatch(Expression.ToLower(), line.ToLower()))
                 {
                     yield return line;
                 }

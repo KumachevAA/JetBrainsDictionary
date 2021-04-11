@@ -24,10 +24,10 @@ namespace JetBrainsDictionary
     /// </summary>
     public partial class MainWindow : Window
     {
-        string Path { get; set; }
-
-        IDictionarySearch Search = new FileDictionarySearch("../../../words.txt");
-
+        string Path { get; set; } = "../../../words.txt";
+        IMatchChecker Checker { get; set; } = new StrictMatchChecker();
+        IDictionarySearch Search { get; set; }
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -43,6 +43,7 @@ namespace JetBrainsDictionary
                 return;
             }
 
+            Search = new FileDictionarySearch(Path, Checker);
             btn.IsEnabled = false;
             status.Visibility = Visibility.Hidden;
 
@@ -58,7 +59,7 @@ namespace JetBrainsDictionary
             }
 
             int total = await result.CountAsync();
-            string[] output = await result.Take(5000).ToArrayAsync();
+            string[] output = await result.Take(2500).ToArrayAsync();
             outputBox.Text = string.Join(Environment.NewLine, output);
             status.Content = $"Показано {output.Length} результатов из {total}";
 
@@ -73,7 +74,19 @@ namespace JetBrainsDictionary
 
             if (result.HasValue && result.Value)
             {
-                Search = new FileDictionarySearch(dialog.FileName);
+                Path = dialog.FileName;
+            }
+        }
+
+        private void continuousSearch_Checked(object sender, RoutedEventArgs e)
+        {
+            if (continuousSearch.IsChecked.Value)
+            {
+                Checker = new ContinuousMatchChecker();
+            }
+            else
+            {
+                Checker = new StrictMatchChecker();
             }
         }
     }

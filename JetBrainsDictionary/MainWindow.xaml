@@ -7,12 +7,41 @@
         mc:Ignorable="d"
         Title="Поиск в английском словаре" Height="500" Width="300" MinHeight="500" MinWidth="300">
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <LinearGradientBrush.RelativeTransform>
+                    <TransformGroup>
+                        <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                        <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                        <RotateTransform Angle="-60" CenterY="0.5" CenterX="0.5"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </LinearGradientBrush.RelativeTransform>
+                <GradientStop Color="#FF3200DC" Offset="0"/>
+                <GradientStop Color="#FF2902AE" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Menu>
+            <Menu.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <LinearGradientBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                            <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                            <RotateTransform Angle="60" CenterY="0.5" CenterX="0.5"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#FF7ECD0B"/>
+                    <GradientStop Color="#FF178773" Offset="1"/>
+                </LinearGradientBrush>
+            </Menu.Background>
             <MenuItem Header="Словарь">
                 <MenuItem Header="Выбрать файл" Click="MenuItem_Click"/>
             </MenuItem>
         </Menu>
         <Label Content="Введите слово для поиска" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="continuousSearch" Content="Поиск по последовательным символам" Margin="10,35,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="continuousSearch_Checked"/>
         <TextBox x:Name="inputBox" TextWrapping="NoWrap" MaxLines="1" TextAlignment="Right" Margin="10,73,10,0" VerticalAlignment="Top"/>
         <Button x:Name="btn" Content="Поиск" Margin="0, 47, 10, 0" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Button_Click"/>
         <Label Content="Результаты поиска" HorizontalAlignment="Left" Margin="10,120,0,0" VerticalAlignment="Top"/>
