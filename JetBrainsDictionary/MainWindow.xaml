@@ -9,7 +9,7 @@
     <Grid>
         <Menu>
             <MenuItem Header="Словарь">
-                <MenuItem Header="Выбрать файл"/>
+                <MenuItem Header="Выбрать файл" Click="MenuItem_Click"/>
             </MenuItem>
         </Menu>
         <Label Content="Введите слово для поиска" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top"/>

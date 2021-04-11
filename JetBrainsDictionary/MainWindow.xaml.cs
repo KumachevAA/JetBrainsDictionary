@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using JetBrainsDictionary.Extensions;
 using System.IO;
+using Microsoft.Win32;
 
 namespace JetBrainsDictionary
 {
@@ -23,6 +24,8 @@ namespace JetBrainsDictionary
     /// </summary>
     public partial class MainWindow : Window
     {
+        string Path { get; set; }
+
         IDictionarySearch Search = new FileDictionarySearch("../../../words.txt");
 
         public MainWindow()
@@ -61,6 +64,17 @@ namespace JetBrainsDictionary
 
             status.Visibility = Visibility.Visible;
             btn.IsEnabled = true;
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            bool? result = dialog.ShowDialog();
+
+            if (result.HasValue && result.Value)
+            {
+                Search = new FileDictionarySearch(dialog.FileName);
+            }
         }
     }
 }
