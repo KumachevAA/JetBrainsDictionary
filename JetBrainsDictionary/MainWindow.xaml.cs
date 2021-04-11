@@ -25,23 +25,23 @@ namespace JetBrainsDictionary
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            string exp = inputBox.Text; //Выражение для поиска
+            string exp = inputBox.Text;                 //Выражение для поиска
 
-            if (string.IsNullOrEmpty(exp)) //Не пустое
+            if (string.IsNullOrEmpty(exp))              //Не пустое
             {
                 MessageBox.Show("Введите что-нибудь в поле ввода");
                 return;
             }
 
-            Search = new FileDictionarySearch(Path, Checker); //Создаем поиск в файле с заданными параметрами
-            btn.IsEnabled = false; //Отключаем кнопку поиска
-            status.Visibility = Visibility.Hidden; //Скрываем статусное сообщение
+            Search = new FileDictionarySearch(Path, Checker);               //Создаем поиск в файле с заданными параметрами
+            btn.IsEnabled = false;                                          //Отключаем кнопку поиска
+            status.Visibility = Visibility.Hidden;                          //Скрываем статусное сообщение
 
-            IEnumerable<string> result = null; //Результаты
+            IEnumerable<string> result = null;                              //Результаты
 
             try
             {
-                result = Search.Find(exp); //Попытка поиска
+                result = Search.Find(exp);                                  //Попытка поиска
             }
             catch (FileNotFoundException)
             {
@@ -50,23 +50,23 @@ namespace JetBrainsDictionary
                 return;
             }
 
-            int total = await result.CountAsync(); //Всего результатов
-            string[] output = await result.Take(5000).ToArrayAsync(); //Взять не больше 5000
-            outputBox.Text = string.Join(Environment.NewLine, output); //Положить каждый по одному на строку
-            status.Content = $"Показано {output.Length} результатов из {total}"; //Вывести количество найденных и выведенных на экран
+            int total = await result.CountAsync();                                  //Всего результатов
+            string[] output = await result.Take(5000).ToArrayAsync();               //Взять не больше 5000
+            outputBox.Text = string.Join(Environment.NewLine, output);              //Положить каждый по одному на строку
+            status.Content = $"Показано {output.Length} результатов из {total}";    //Вывести количество найденных и выведенных на экран
 
-            status.Visibility = Visibility.Visible; //Статус видимый
-            btn.IsEnabled = true; //Кнопку снова можно нажать
+            status.Visibility = Visibility.Visible;                                 //Статус видимый
+            btn.IsEnabled = true;                                                   //Кнопку снова можно нажать
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog dialog = new OpenFileDialog(); //Диалог выбора файла
+            OpenFileDialog dialog = new OpenFileDialog();                           //Диалог выбора файла
             bool? result = dialog.ShowDialog();
 
-            if (result.HasValue && result.Value) //Если файл выбран
+            if (result.HasValue && result.Value)                                    //Если файл выбран
             {
-                Path = dialog.FileName; //Прописываем путь
+                Path = dialog.FileName;                                             //Прописываем путь
             }
         }
 
