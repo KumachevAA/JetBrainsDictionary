@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JetBrainsDictionary.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using JetBrainsDictionary.Extensions;
+using System.IO;
 
 namespace JetBrainsDictionary
 {
@@ -20,9 +23,44 @@ namespace JetBrainsDictionary
     /// </summary>
     public partial class MainWindow : Window
     {
+        IDictionarySearch Search = new FileDictionarySearch("../../../words.txt");
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string exp = inputBox.Text;
+
+            if (string.IsNullOrEmpty(exp))
+            {
+                MessageBox.Show("Введите что-нибудь в поле ввода");
+                return;
+            }
+
+            btn.IsEnabled = false;
+            status.Visibility = Visibility.Hidden;
+
+            IEnumerable<string> result = null;
+
+            try
+            {
+                result = Search.Find(exp);
+            }
+            catch (FileNotFoundException)
+            {
+                MessageBox.Show("Не найден файл. Убедитесь, что вы выбрали существующий");
+            }
+
+            int total = await result.CountAsync();
+            string[] output = await result.Take(5000).ToArrayAsync();
+            outputBox.Text = string.Join(Environment.NewLine, output);
+            status.Content = $"Показано {output.Length} результатов из {total}";
+
+            status.Visibility = Visibility.Visible;
+            btn.IsEnabled = true;
         }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JetBrainsDictionary"
         mc:Ignorable="d"
-        Title="Поиск в английском словаре" Height="500" Width="300" MinHeight="460" MinWidth="200">
+        Title="Поиск в английском словаре" Height="500" Width="300" MinHeight="500" MinWidth="300">
     <Grid>
         <Menu>
             <MenuItem Header="Словарь">
@@ -13,8 +13,10 @@
             </MenuItem>
         </Menu>
         <Label Content="Введите слово для поиска" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top"/>
-        <TextBox TextWrapping="NoWrap" MaxLines="1" TextAlignment="Right" Margin="10,73,10,0" VerticalAlignment="Top"/>
-        <Label Content="Результаты поиска" HorizontalAlignment="Left" Margin="10,0,0,327" VerticalAlignment="Bottom"/>
-        <TextBox TextWrapping="Wrap" TextAlignment="Left" Margin="10,0,10,10" VerticalAlignment="Bottom" Height="317"/>
+        <TextBox x:Name="inputBox" TextWrapping="NoWrap" MaxLines="1" TextAlignment="Right" Margin="10,73,10,0" VerticalAlignment="Top"/>
+        <Button x:Name="btn" Content="Поиск" Margin="0, 47, 10, 0" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Button_Click"/>
+        <Label Content="Результаты поиска" HorizontalAlignment="Left" Margin="10,120,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="status" Visibility="Hidden" Margin="10,90,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <TextBox x:Name="outputBox" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" TextAlignment="Left" Margin="10,150,10,20"/>
     </Grid>
 </Window>
