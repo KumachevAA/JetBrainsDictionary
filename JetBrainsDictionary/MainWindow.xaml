@@ -41,7 +41,7 @@
             </MenuItem>
         </Menu>
         <Label Content="Введите слово для поиска" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="continuousSearch" Content="Поиск по последовательным символам" Margin="10,35,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="continuousSearch_Checked"/>
+        <CheckBox x:Name="continuousSearch" Content="Поиск по последовательным символам" Margin="10,35,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="continuousSearch_Checked" Unchecked="continuousSearch_Unchecked"/>
         <TextBox x:Name="inputBox" TextWrapping="NoWrap" MaxLines="1" TextAlignment="Right" Margin="10,73,10,0" VerticalAlignment="Top"/>
         <Button x:Name="btn" Content="Поиск" Margin="0, 47, 10, 0" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Button_Click"/>
         <Label Content="Результаты поиска" HorizontalAlignment="Left" Margin="10,120,0,0" VerticalAlignment="Top"/>
