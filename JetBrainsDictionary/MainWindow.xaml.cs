@@ -25,46 +25,48 @@ namespace JetBrainsDictionary
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            string exp = inputBox.Text;
+            string exp = inputBox.Text; //Выражение для поиска
 
-            if (string.IsNullOrEmpty(exp))
+            if (string.IsNullOrEmpty(exp)) //Не пустое
             {
                 MessageBox.Show("Введите что-нибудь в поле ввода");
                 return;
             }
 
-            Search = new FileDictionarySearch(Path, Checker);
-            btn.IsEnabled = false;
-            status.Visibility = Visibility.Hidden;
+            Search = new FileDictionarySearch(Path, Checker); //Создаем поиск в файле с заданными параметрами
+            btn.IsEnabled = false; //Отключаем кнопку поиска
+            status.Visibility = Visibility.Hidden; //Скрываем статусное сообщение
 
-            IEnumerable<string> result = null;
+            IEnumerable<string> result = null; //Результаты
 
             try
             {
-                result = Search.Find(exp);
+                result = Search.Find(exp); //Попытка поиска
             }
             catch (FileNotFoundException)
             {
                 MessageBox.Show("Не найден файл. Убедитесь, что вы выбрали существующий");
+                btn.IsEnabled = true;
+                return;
             }
 
-            int total = await result.CountAsync();
-            string[] output = await result.Take(2500).ToArrayAsync();
-            outputBox.Text = string.Join(Environment.NewLine, output);
-            status.Content = $"Показано {output.Length} результатов из {total}";
+            int total = await result.CountAsync(); //Всего результатов
+            string[] output = await result.Take(5000).ToArrayAsync(); //Взять не больше 5000
+            outputBox.Text = string.Join(Environment.NewLine, output); //Положить каждый по одному на строку
+            status.Content = $"Показано {output.Length} результатов из {total}"; //Вывести количество найденных и выведенных на экран
 
-            status.Visibility = Visibility.Visible;
-            btn.IsEnabled = true;
+            status.Visibility = Visibility.Visible; //Статус видимый
+            btn.IsEnabled = true; //Кнопку снова можно нажать
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog dialog = new OpenFileDialog();
+            OpenFileDialog dialog = new OpenFileDialog(); //Диалог выбора файла
             bool? result = dialog.ShowDialog();
 
-            if (result.HasValue && result.Value)
+            if (result.HasValue && result.Value) //Если файл выбран
             {
-                Path = dialog.FileName;
+                Path = dialog.FileName; //Прописываем путь
             }
         }
 

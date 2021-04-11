@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 namespace JetBrainsDictionary.Extensions
 {
+    /// <summary>
+    /// Асинхронные операции с коллекциями
+    /// </summary>
     static class EnumerableExtensions
     {
         public static Task<T[]> ToArrayAsync<T>(this IEnumerable<T> ts) => Task.Run(() => ts.ToArray());
